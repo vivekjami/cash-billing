@@ -1,0 +1,161 @@
+/**
+ * BillHistory Styles
+ */
+
+.bill-history {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--shadow-md);
+}
+
+.history-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.history-header svg {
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.history-header h3 {
+    margin: 0 0 4px 0;
+    color: var(--text-primary);
+    font-size: 1.2rem;
+}
+
+.history-header p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.bills-list {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+}
+
+.bill-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.2s;
+}
+
+.bill-row:last-child {
+    border-bottom: none;
+}
+
+.bill-row:hover {
+    background: var(--bg-secondary);
+}
+
+.bill-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.bill-number {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.bill-date {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.bill-amount {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--primary);
+}
+
+.no-bills {
+    padding: 40px;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+/* Reusing modal styles from OrderPanel */
+.bill-history .bill-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.bill-history .bill-modal {
+    background: var(--card-bg);
+    border-radius: 16px;
+    max-width: 400px;
+    width: 90%;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.bill-history .bill-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.bill-history .bill-modal-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+}
+
+.bill-history .bill-modal-header button {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all 0.2s;
+}
+
+.bill-history .bill-modal-header button:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.bill-history .bill-modal-content {
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    background: #f5f5f5;
+}
+
+.bill-history .bill-modal-actions {
+    display: flex;
+    gap: 12px;
+    padding: 16px 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.bill-history .bill-modal-actions .btn {
+    flex: 1;
+}

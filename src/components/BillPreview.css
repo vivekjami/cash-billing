@@ -1,0 +1,160 @@
+/**
+ * BillPreview Styles
+ * 
+ * Designed for thermal printers (typically 80mm or 58mm width)
+ * Uses monospace font for proper column alignment
+ */
+
+.bill-preview {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  width: 280px;
+  padding: 10px;
+  background: white;
+  color: #000;
+}
+
+.bill-content {
+  width: 100%;
+}
+
+/* Header */
+.bill-header {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.restaurant-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.restaurant-desc {
+  font-size: 11px;
+  margin: 2px 0;
+}
+
+.bill-type {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.gstin {
+  font-size: 10px;
+  margin: 2px 0;
+}
+
+/* Info Section */
+.bill-info {
+  margin: 10px 0;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  margin: 2px 0;
+}
+
+.info-row.two-col {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Divider */
+.bill-divider {
+  border-top: 1px solid #000;
+  margin: 5px 0;
+}
+
+.bill-divider.bold {
+  border-top: 2px solid #000;
+}
+
+/* Items Header & List */
+.items-header,
+.item-row {
+  display: grid;
+  grid-template-columns: 2fr 0.5fr 1fr 1fr;
+  gap: 5px;
+  font-size: 11px;
+  padding: 2px 0;
+}
+
+.items-header {
+  font-weight: bold;
+}
+
+.col-item {
+  text-align: left;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.col-qty {
+  text-align: center;
+}
+
+.col-price,
+.col-amount {
+  text-align: right;
+}
+
+.items-list {
+  margin: 5px 0;
+}
+
+/* Summary */
+.bill-summary {
+  margin: 5px 0;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  padding: 1px 0;
+}
+
+/* Grand Total */
+.grand-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px 0;
+}
+
+/* Footer */
+.bill-footer {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Print specific styles */
+@media print {
+  .bill-preview {
+    width: 80mm;
+    padding: 2mm;
+    margin: 0;
+  }
+
+  .restaurant-name {
+    font-size: 20px;
+  }
+
+  .items-header,
+  .item-row {
+    font-size: 10px;
+  }
+
+  .grand-total {
+    font-size: 12px;
+  }
+}
