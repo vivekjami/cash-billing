@@ -192,7 +192,33 @@ function OrderPanel() {
     const handleKOTPrint = useReactToPrint({
         contentRef: kotRef,
         onAfterPrint: async () => {
-            // KOT number is synced with bill number, no separate increment needed
+            // Save bill to history when KOT is printed
+            const nextBillNumber = await getNextBillNumber();
+            await saveBill({
+                billNumber: kotNumber,
+                date: new Date().toLocaleDateString('en-IN'),
+                time: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: false }),
+                dineIn,
+                cashier,
+                customerName,
+                items: orderItems.map(item => ({
+                    name: item.name,
+                    quantity: item.quantity,
+                    price: item.price,
+                    amount: item.price * item.quantity
+                })),
+                subtotal,
+                cgst,
+                sgst,
+                roundOff,
+                grandTotal
+            });
+
+            // Reset for next order
+            setBillNumber(nextBillNumber);
+            setKotNumber(nextBillNumber);
+            setOrderItems([]);
+            setCustomerName('');
             setShowKOTPreview(false);
         }
     });
