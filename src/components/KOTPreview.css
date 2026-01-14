@@ -1,0 +1,136 @@
+/**
+ * KOTPreview Styles
+ * 
+ * Designed for thermal printers (72mm width)
+ * Simple, bold layout for kitchen visibility
+ */
+
+.kot-preview {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.6;
+    width: 72mm;
+    max-width: 72mm;
+    padding: 3mm;
+    background: white;
+    color: #000;
+}
+
+.kot-content {
+    width: 100%;
+}
+
+/* Header DateTime */
+.kot-datetime {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+/* KOT Number */
+.kot-number {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 900;
+    margin: 6px 0;
+}
+
+/* Restaurant Name */
+.kot-restaurant {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 900;
+    margin: 6px 0;
+    text-transform: capitalize;
+}
+
+/* Table Number */
+.kot-table {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 6px 0;
+}
+
+/* Divider - dashed line */
+.kot-divider {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 400;
+    color: #000;
+    margin: 4px 0;
+    letter-spacing: -1px;
+}
+
+/* Column Header */
+.kot-column-header {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 900;
+    padding: 4px 0;
+}
+
+/* Item Rows */
+.kot-items {
+    margin: 6px 0;
+}
+
+.kot-item-row {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 800;
+    padding: 4px 0;
+    border-bottom: 1px dotted #ccc;
+}
+
+.kot-item-row:last-child {
+    border-bottom: none;
+}
+
+.col-qty {
+    text-align: center;
+    font-weight: 900;
+}
+
+.kot-column-header .col-item,
+.kot-item-row .col-item {
+    text-align: left;
+    word-wrap: break-word;
+}
+
+/* Footer */
+.kot-footer {
+    text-align: left;
+    font-size: 18px;
+    font-weight: 900;
+    padding: 8px 0;
+}
+
+/* Print specific styles */
+@media print {
+    .kot-preview {
+        width: 72mm;
+        max-width: 72mm;
+        padding: 2mm;
+        margin: 0;
+        font-size: 16px;
+    }
+
+    .kot-number {
+        font-size: 18px;
+    }
+
+    .kot-restaurant {
+        font-size: 20px;
+    }
+
+    .kot-item-row {
+        font-size: 14px;
+    }
+}

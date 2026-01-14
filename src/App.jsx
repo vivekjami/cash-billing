@@ -17,7 +17,7 @@ import {
   Menu,
   X
 } from 'lucide-react';
-import { initializeSampleItems } from './db/db';
+import { initializeSampleItems, resetMenuItems } from './db/db';
 import OrderPanel from './components/OrderPanel';
 import ItemManager from './components/ItemManager';
 import BillHistory from './components/BillHistory';
@@ -28,9 +28,17 @@ function App() {
   const [activeTab, setActiveTab] = useState('order');
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  // Initialize sample items on first load
+  // Reset menu items to new Madhuram Cafe menu (one-time)
   useEffect(() => {
-    initializeSampleItems();
+    // Check if we've already migrated
+    const migrated = localStorage.getItem('madhuram_menu_v1');
+    if (!migrated) {
+      resetMenuItems().then(() => {
+        localStorage.setItem('madhuram_menu_v1', 'true');
+      });
+    } else {
+      initializeSampleItems();
+    }
   }, []);
 
   const tabs = [
@@ -46,7 +54,7 @@ function App() {
       <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
           <div className="logo">
-            <h1>DAKSHIN</h1>
+            <h1>MADHURAM</h1>
             <span>POS System</span>
           </div>
           <button
@@ -74,8 +82,8 @@ function App() {
         </nav>
 
         <div className="sidebar-footer">
-          <p>DAKSHIN Café</p>
-          <p className="small">BIRYANI & SWEETS HALL</p>
+          <p>MADHURAM</p>
+          <p className="small">CAFÉ AND TIFFINS</p>
         </div>
       </aside>
 

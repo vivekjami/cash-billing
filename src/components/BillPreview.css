@@ -3,14 +3,18 @@
  * 
  * Designed for thermal printers (typically 80mm or 58mm width)
  * Uses monospace font for proper column alignment
+ * Optimized for thermal printer dimensions
  */
 
 .bill-preview {
   font-family: 'Courier New', Courier, monospace;
-  font-size: 12px;
-  line-height: 1.4;
-  width: 280px;
-  padding: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  width: 72mm;
+  /* Standard thermal printer width */
+  max-width: 72mm;
+  padding: 3mm;
   background: white;
   color: #000;
 }
@@ -22,30 +26,33 @@
 /* Header */
 .bill-header {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .restaurant-name {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 28px;
+  font-weight: 900;
   margin: 0;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
 }
 
 .restaurant-desc {
-  font-size: 11px;
-  margin: 2px 0;
+  font-size: 13px;
+  font-weight: 700;
+  margin: 4px 0;
 }
 
 .bill-type {
-  font-size: 14px;
-  font-weight: bold;
-  margin: 5px 0;
+  font-size: 16px;
+  font-weight: 900;
+  margin: 6px 0;
 }
 
 .gstin {
-  font-size: 10px;
-  margin: 2px 0;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 4px 0;
 }
 
 /* Info Section */
@@ -56,8 +63,9 @@
 .info-row {
   display: flex;
   justify-content: space-between;
-  font-size: 11px;
-  margin: 2px 0;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 3px 0;
 }
 
 .info-row.two-col {
@@ -65,10 +73,11 @@
   justify-content: space-between;
 }
 
-/* Divider */
+/* Divider - dashed line for thermal printer */
 .bill-divider {
-  border-top: 1px solid #000;
-  margin: 5px 0;
+  border: none;
+  border-top: 1px dashed #000;
+  margin: 6px 0;
 }
 
 .bill-divider.bold {
@@ -80,13 +89,14 @@
 .item-row {
   display: grid;
   grid-template-columns: 2fr 0.5fr 1fr 1fr;
-  gap: 5px;
-  font-size: 11px;
-  padding: 2px 0;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 3px 0;
 }
 
 .items-header {
-  font-weight: bold;
+  font-weight: 900;
 }
 
 .col-item {
@@ -105,56 +115,59 @@
 }
 
 .items-list {
-  margin: 5px 0;
+  margin: 6px 0;
 }
 
 /* Summary */
 .bill-summary {
-  margin: 5px 0;
+  margin: 6px 0;
 }
 
 .summary-row {
   display: flex;
   justify-content: space-between;
-  font-size: 11px;
-  padding: 1px 0;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 2px 0;
 }
 
 /* Grand Total */
 .grand-total {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
-  font-weight: bold;
-  padding: 5px 0;
+  font-size: 16px;
+  font-weight: 900;
+  padding: 6px 0;
 }
 
 /* Footer */
 .bill-footer {
   text-align: center;
-  margin-top: 15px;
-  font-size: 12px;
-  font-weight: bold;
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 900;
 }
 
-/* Print specific styles */
+/* Print specific styles for thermal printer */
 @media print {
   .bill-preview {
-    width: 80mm;
+    width: 72mm;
+    max-width: 72mm;
     padding: 2mm;
     margin: 0;
+    font-size: 14px;
   }
 
   .restaurant-name {
-    font-size: 20px;
+    font-size: 26px;
   }
 
   .items-header,
   .item-row {
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .grand-total {
-    font-size: 12px;
+    font-size: 14px;
   }
 }

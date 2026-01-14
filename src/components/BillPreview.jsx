@@ -39,10 +39,10 @@ const BillPreview = forwardRef(({
             <div className="bill-content">
                 {/* Header */}
                 <div className="bill-header">
-                    <h1 className="restaurant-name">DAKSHIN</h1>
-                    <p className="restaurant-desc">CAFÉ – BIRYANI & SWEETS HALL</p>
-                    <p className="bill-type">DR</p>
-                    <p className="gstin">GSTIN – 37AATFD7206L1ZW</p>
+                    <h1 className="restaurant-name">MADHURAM</h1>
+                    <div className="bill-divider"></div>
+                    <p className="restaurant-desc">CAFÉ AND TIFFINS</p>
+                    <p className="gstin">GSTIN – 37AAWPI8183N1ZL</p>
                 </div>
 
                 {/* Customer Info */}
@@ -52,7 +52,7 @@ const BillPreview = forwardRef(({
                     </div>
                     <div className="info-row two-col">
                         <span>Date: {date}</span>
-                        <span>Dine In: {dineIn}</span>
+                        <span>Order Type: {dineIn}</span>
                     </div>
                     <div className="info-row two-col">
                         <span>{time}</span>
@@ -93,6 +93,7 @@ const BillPreview = forwardRef(({
                         <span>Total Qty: {totalQty}</span>
                         <span>Sub {subtotal.toFixed(2)}</span>
                     </div>
+                    {/* Commented out taxes for now
                     <div className="summary-row">
                         <span></span>
                         <span>CGST 2.5% {cgst.toFixed(2)}</span>
@@ -105,6 +106,7 @@ const BillPreview = forwardRef(({
                         <span></span>
                         <span>Round off {roundOff >= 0 ? '+' : ''}{roundOff.toFixed(2)}</span>
                     </div>
+                    */}
                 </div>
 
                 <div className="bill-divider bold"></div>

@@ -10,10 +10,11 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, Plus, Minus, Trash2, Printer, RotateCcw } from 'lucide-react';
+import { Search, Plus, Minus, Trash2, Printer, RotateCcw, ChefHat } from 'lucide-react';
 import { useReactToPrint } from 'react-to-print';
-import db, { getNextBillNumber, saveBill } from '../db/db';
+import db, { getNextBillNumber, getNextKOTNumber, saveBill } from '../db/db';
 import BillPreview from './BillPreview';
+import KOTPreview from './KOTPreview';
 import './OrderPanel.css';
 
 function OrderPanel() {
@@ -22,10 +23,12 @@ function OrderPanel() {
     const [searchQuery, setSearchQuery] = useState('');
     const [orderItems, setOrderItems] = useState([]);
     const [cashier, setCashier] = useState('Sunil');
-    const [dineIn, setDineIn] = useState('DC-01');
+    const [dineIn, setDineIn] = useState('Dine-in');
     const [customerName, setCustomerName] = useState('');
     const [billNumber, setBillNumber] = useState('00001');
+    const [kotNumber, setKotNumber] = useState('001');
     const [showBillPreview, setShowBillPreview] = useState(false);
+    const [showKOTPreview, setShowKOTPreview] = useState(false);
     const [showAddItem, setShowAddItem] = useState(false);
     const [newItemName, setNewItemName] = useState('');
     const [newItemPrice, setNewItemPrice] = useState('');
@@ -33,6 +36,7 @@ function OrderPanel() {
 
     // Refs
     const billRef = useRef();
+    const kotRef = useRef();
 
     // Load menu items
     useEffect(() => {
@@ -46,11 +50,15 @@ function OrderPanel() {
 
     // Calculate bill totals
     const subtotal = orderItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const cgst = subtotal * 0.025; // 2.5%
-    const sgst = subtotal * 0.025; // 2.5%
-    const beforeRound = subtotal + cgst + sgst;
-    const grandTotal = Math.round(beforeRound);
-    const roundOff = grandTotal - beforeRound;
+    // Commented out taxes for now
+    // const cgst = subtotal * 0.025; // 2.5%
+    // const sgst = subtotal * 0.025; // 2.5%
+    // const beforeRound = subtotal + cgst + sgst;
+    // const roundOff = grandTotal - beforeRound;
+    const cgst = 0;
+    const sgst = 0;
+    const roundOff = 0;
+    const grandTotal = Math.round(subtotal);
 
     // Filter menu items based on search
     const filteredMenuItems = menuItems.filter(item =>
@@ -104,7 +112,7 @@ function OrderPanel() {
     }
 
     // Categories for dropdown
-    const categories = ['Biryani', 'Starters', 'Sweets', 'Beverages', 'Main Course', 'Desserts'];
+    const categories = ['Tiffins', 'Combos', 'Fresh Juices', 'Milkshakes', 'Tea & Coffee'];
 
     // Update quantity
     function updateQuantity(id, delta) {
@@ -180,6 +188,33 @@ function OrderPanel() {
         setShowBillPreview(true);
     }
 
+    // KOT print handler
+    const handleKOTPrint = useReactToPrint({
+        contentRef: kotRef,
+        onAfterPrint: async () => {
+            // Get next KOT number for next order
+            const nextKOT = await getNextKOTNumber();
+            setKotNumber(nextKOT);
+            setShowKOTPreview(false);
+        }
+    });
+
+    // Prepare KOT print
+    async function prepareKOTPrint() {
+        if (orderItems.length === 0) {
+            alert('Add items to order first!');
+            return;
+        }
+
+        // Get current KOT number if first print
+        if (kotNumber === '001') {
+            const next = await getNextKOTNumber();
+            setKotNumber(next);
+        }
+
+        setShowKOTPreview(true);
+    }
+
     return (
         <div className="order-panel">
             {/* Order Info Header */}
@@ -194,12 +229,14 @@ function OrderPanel() {
                         />
                     </div>
                     <div className="info-field">
-                        <label>Table/Dine In</label>
-                        <input
-                            type="text"
+                        <label>Order Type</label>
+                        <select
                             value={dineIn}
                             onChange={(e) => setDineIn(e.target.value)}
-                        />
+                        >
+                            <option value="Dine-in">Dine-in</option>
+                            <option value="Parcel">Parcel</option>
+                        </select>
                     </div>
                     <div className="info-field">
                         <label>Customer Name</label>
@@ -352,6 +389,7 @@ function OrderPanel() {
                     <span>Subtotal</span>
                     <span>₹{subtotal.toFixed(2)}</span>
                 </div>
+                {/* Commented out taxes for now
                 <div className="summary-line tax">
                     <span>CGST (2.5%)</span>
                     <span>₹{cgst.toFixed(2)}</span>
@@ -364,6 +402,7 @@ function OrderPanel() {
                     <span>Round off</span>
                     <span>{roundOff >= 0 ? '+' : ''}₹{roundOff.toFixed(2)}</span>
                 </div>
+                */}
                 <div className="summary-line total">
                     <span>Grand Total</span>
                     <span>₹{grandTotal.toFixed(2)}</span>
@@ -375,6 +414,10 @@ function OrderPanel() {
                 <button className="btn btn-secondary" onClick={clearOrder}>
                     <RotateCcw size={18} />
                     Clear
+                </button>
+                <button className="btn btn-warning" onClick={prepareKOTPrint}>
+                    <ChefHat size={18} />
+                    KOT
                 </button>
                 <button className="btn btn-primary" onClick={preparePrint}>
                     <Printer size={18} />
@@ -412,6 +455,36 @@ function OrderPanel() {
                             <button className="btn btn-primary" onClick={handlePrint}>
                                 <Printer size={18} />
                                 Print Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* KOT Preview Modal */}
+            {showKOTPreview && (
+                <div className="bill-modal-overlay" onClick={() => setShowKOTPreview(false)}>
+                    <div className="bill-modal" onClick={(e) => e.stopPropagation()}>
+                        <div className="bill-modal-header">
+                            <h3>KOT Preview</h3>
+                            <button onClick={() => setShowKOTPreview(false)}>×</button>
+                        </div>
+                        <div className="bill-modal-content">
+                            <KOTPreview
+                                ref={kotRef}
+                                kotNumber={kotNumber}
+                                items={orderItems}
+                                tableNumber={dineIn}
+                                orderType={dineIn}
+                            />
+                        </div>
+                        <div className="bill-modal-actions">
+                            <button className="btn btn-secondary" onClick={() => setShowKOTPreview(false)}>
+                                Cancel
+                            </button>
+                            <button className="btn btn-warning" onClick={handleKOTPrint}>
+                                <ChefHat size={18} />
+                                Print KOT
                             </button>
                         </div>
                     </div>
