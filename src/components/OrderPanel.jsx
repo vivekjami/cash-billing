@@ -26,7 +26,7 @@ function OrderPanel() {
     const [dineIn, setDineIn] = useState('Dine-in');
     const [customerName, setCustomerName] = useState('');
     const [billNumber, setBillNumber] = useState('00001');
-    const [kotNumber, setKotNumber] = useState('001');
+    const [kotNumber, setKotNumber] = useState('00001');
     const [showBillPreview, setShowBillPreview] = useState(false);
     const [showKOTPreview, setShowKOTPreview] = useState(false);
     const [showAddItem, setShowAddItem] = useState(false);
@@ -192,9 +192,7 @@ function OrderPanel() {
     const handleKOTPrint = useReactToPrint({
         contentRef: kotRef,
         onAfterPrint: async () => {
-            // Get next KOT number for next order
-            const nextKOT = await getNextKOTNumber();
-            setKotNumber(nextKOT);
+            // KOT number is synced with bill number, no separate increment needed
             setShowKOTPreview(false);
         }
     });
@@ -206,10 +204,13 @@ function OrderPanel() {
             return;
         }
 
-        // Get current KOT number if first print
-        if (kotNumber === '001') {
-            const next = await getNextKOTNumber();
+        // Get current bill number (synced with KOT)
+        if (billNumber === '00001') {
+            const next = await getNextBillNumber();
+            setBillNumber(next);
             setKotNumber(next);
+        } else {
+            setKotNumber(billNumber);
         }
 
         setShowKOTPreview(true);

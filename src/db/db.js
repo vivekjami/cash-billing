@@ -20,25 +20,55 @@ db.version(1).stores({
 });
 
 /**
+ * Get today's date string in YYYY-MM-DD format
+ * @returns {string} Today's date
+ */
+function getTodayDateString() {
+    const now = new Date();
+    return now.toISOString().split('T')[0]; // YYYY-MM-DD
+}
+
+/**
  * Get the next bill number (padded to 5 digits)
+ * Resets to 1 each new day
  * @returns {Promise<string>} Next bill number (e.g., "00001")
  */
 export async function getNextBillNumber() {
-    const setting = await db.settings.get('lastBillNumber');
-    const nextNumber = setting ? setting.value + 1 : 1;
+    const today = getTodayDateString();
+    const dateSetting = await db.settings.get('lastBillDate');
+    const numberSetting = await db.settings.get('lastBillNumber');
+
+    let nextNumber;
+
+    // Check if it's a new day - reset counter
+    if (!dateSetting || dateSetting.value !== today) {
+        nextNumber = 1;
+        await db.settings.put({ key: 'lastBillDate', value: today });
+    } else {
+        nextNumber = numberSetting ? numberSetting.value + 1 : 1;
+    }
+
     await db.settings.put({ key: 'lastBillNumber', value: nextNumber });
     return nextNumber.toString().padStart(5, '0');
 }
 
 /**
- * Get the next KOT number (padded to 3 digits)
- * @returns {Promise<string>} Next KOT number (e.g., "001")
+ * Get the next KOT number (synced with bill number, padded to 5 digits)
+ * Resets to 1 each new day (same as bill number)
+ * @returns {Promise<string>} Next KOT number (same as bill number, e.g., "00001")
  */
 export async function getNextKOTNumber() {
-    const setting = await db.settings.get('lastKOTNumber');
-    const nextNumber = setting ? setting.value + 1 : 1;
-    await db.settings.put({ key: 'lastKOTNumber', value: nextNumber });
-    return nextNumber.toString().padStart(3, '0');
+    const today = getTodayDateString();
+    const dateSetting = await db.settings.get('lastBillDate');
+    const numberSetting = await db.settings.get('lastBillNumber');
+
+    // Check if it's a new day - would reset to 1
+    if (!dateSetting || dateSetting.value !== today) {
+        return '00001';
+    }
+
+    const nextNumber = numberSetting ? numberSetting.value + 1 : 1;
+    return nextNumber.toString().padStart(5, '0');
 }
 
 /**
