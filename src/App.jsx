@@ -1,14 +1,15 @@
 /**
- * DAKSHIN POS - Main Application
+ * MADHURAM POS - Main Application
  * 
  * Restaurant point-of-sale system with:
  * - Order management and bill printing
  * - Item CRUD operations
  * - Excel backup/restore functionality
  * - Bill history tracking
+ * - Server-based storage (accessible across network)
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   ShoppingCart,
   Package,
@@ -17,7 +18,6 @@ import {
   Menu,
   X
 } from 'lucide-react';
-import { initializeSampleItems, resetMenuItems } from './db/db';
 import OrderPanel from './components/OrderPanel';
 import ItemManager from './components/ItemManager';
 import BillHistory from './components/BillHistory';
@@ -27,19 +27,6 @@ import './App.css';
 function App() {
   const [activeTab, setActiveTab] = useState('order');
   const [sidebarOpen, setSidebarOpen] = useState(true);
-
-  // Reset menu items to new Madhuram Cafe menu (one-time)
-  useEffect(() => {
-    // Check if we've already migrated
-    const migrated = localStorage.getItem('madhuram_menu_v1');
-    if (!migrated) {
-      resetMenuItems().then(() => {
-        localStorage.setItem('madhuram_menu_v1', 'true');
-      });
-    } else {
-      initializeSampleItems();
-    }
-  }, []);
 
   const tabs = [
     { id: 'order', label: 'New Order', icon: ShoppingCart },
