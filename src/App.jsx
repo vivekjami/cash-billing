@@ -21,7 +21,7 @@ import { initializeSampleItems, resetMenuItems } from './db/db';
 import OrderPanel from './components/OrderPanel';
 import ItemManager from './components/ItemManager';
 import BillHistory from './components/BillHistory';
-import BackupRestore from './components/BackupRestore';
+import AdminPanel from './components/AdminPanel';
 import './App.css';
 
 function App() {
@@ -45,7 +45,7 @@ function App() {
     { id: 'order', label: 'New Order', icon: ShoppingCart },
     { id: 'items', label: 'Menu Items', icon: Package },
     { id: 'history', label: 'Bill History', icon: History },
-    { id: 'settings', label: 'Backup/Restore', icon: Settings },
+    { id: 'settings', label: 'Admin', icon: Settings },
   ];
 
   return (
@@ -111,7 +111,7 @@ function App() {
           {activeTab === 'order' && <OrderPanel />}
           {activeTab === 'items' && <ItemManager />}
           {activeTab === 'history' && <BillHistory />}
-          {activeTab === 'settings' && <BackupRestore />}
+          {activeTab === 'settings' && <AdminPanel />}
         </div>
       </main>
 

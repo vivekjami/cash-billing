@@ -1,0 +1,358 @@
+/**
+ * AdminPanel Styles
+ */
+
+.admin-panel {
+    min-height: 400px;
+}
+
+/* Login Container */
+.admin-login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    padding: 20px;
+}
+
+.admin-login-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-login-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.admin-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    box-shadow: 0 8px 24px rgba(79, 70, 229, 0.3);
+}
+
+.admin-icon svg {
+    color: white;
+}
+
+.admin-login-header h2 {
+    margin: 0 0 8px 0;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+}
+
+.admin-login-header p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* Login Form */
+.admin-login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input-wrapper .password-icon {
+    position: absolute;
+    left: 16px;
+    color: var(--text-muted);
+}
+
+.password-input-wrapper input {
+    width: 100%;
+    padding: 14px 50px 14px 48px;
+    background: var(--bg-secondary);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.password-input-wrapper input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: var(--card-bg);
+}
+
+.password-input-wrapper input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.toggle-password:hover {
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+}
+
+.login-error {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 10px;
+    color: #ef4444;
+    font-size: 13px;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.login-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.admin-login-footer {
+    text-align: center;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.admin-login-footer p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+/* Admin Header (after login) */
+.admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-md);
+}
+
+.admin-title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.admin-title svg {
+    color: var(--primary);
+}
+
+.admin-title h3 {
+    margin: 0 0 4px 0;
+    color: var(--text-primary);
+    font-size: 1.2rem;
+}
+
+.admin-title p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+}
+
+/* Backup Section */
+.backup-section {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--shadow-md);
+}
+
+.backup-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.backup-header svg {
+    color: var(--primary);
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.backup-header h4 {
+    margin: 0 0 4px 0;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.backup-header p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.backup-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn-outline:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+}
+
+.btn-warning:hover {
+    opacity: 0.9;
+}
+
+.backup-info {
+    padding: 16px;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    font-size: 13px;
+}
+
+.backup-info p {
+    margin: 6px 0;
+    color: var(--text-secondary);
+}
+
+.backup-info strong {
+    color: var(--text-primary);
+}
+
+/* Confirmation Modal */
+.confirm-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.confirm-modal {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 32px;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+}
+
+.confirm-icon {
+    margin-bottom: 16px;
+}
+
+.confirm-modal h3 {
+    margin: 0 0 12px 0;
+    color: var(--text-primary);
+}
+
+.confirm-modal p {
+    color: var(--text-secondary);
+    margin: 8px 0;
+}
+
+.confirm-modal ul {
+    text-align: left;
+    padding-left: 24px;
+    margin: 16px 0;
+    color: var(--text-secondary);
+}
+
+.confirm-modal li {
+    margin: 8px 0;
+}
+
+.warning-text {
+    color: #ef4444 !important;
+    font-weight: 600;
+}
+
+.confirm-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.confirm-actions .btn {
+    flex: 1;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .admin-login-card {
+        padding: 28px 20px;
+    }
+
+    .admin-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+    }
+
+    .logout-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .backup-actions {
+        grid-template-columns: 1fr;
+    }
+}
